@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
-sys.path.append('..')
 from dezero import cuda
 
 def DiffAugment(x, policy='', channels_first=True, is_cuda=False):
@@ -33,7 +32,7 @@ def rand_saturation(x, is_cuda=False):
         x = (x - x_mean) * (cuda.cupy.random.rand(x.shape[0], 1, 1, 1, dtype=x.dtype) * 2) + x_mean
         return x
 
-    x_mean = x.mean(axis=3, keepdims=True)
+    x_mean = x.average(axis=3, keepdims=True)
     x = (x - x_mean) * (np.random.rand(x.shape[0], 1, 1, 1) * 2) + x_mean
     return x
 
