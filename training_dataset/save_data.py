@@ -1,13 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from PIL import Image
 
-image_number = 50
+image_number = 900
 
 # Save Domain A Dataset as npy
 dataset_A = []
 
 for i in range(1, image_number+1):
-    img = plt.imread(f'./training_dataset/trainA/{i}.png')
+    img = Image.open(f'./training_dataset/trainA/{i}.png')
+    if np.array(img).shape != (256, 256, 3):
+        img = img.resize((256,256))
+    img = np.asarray(img) / 255
     dataset_A.append(img)
 
 dataset_A = np.array(dataset_A)
@@ -19,7 +23,10 @@ print(dataset_A.shape)
 dataset_B = []
 
 for i in range(1, image_number+1):
-    img = plt.imread(f'./training_dataset/trainB/{i}.png')
+    img = Image.open(f'./training_dataset/trainB/{i}.png')
+    if np.array(img).shape != (256, 256, 3):
+        img = img.resize((256,256))
+    img = np.asarray(img) / 255
     dataset_B.append(img)
 
 dataset_B = np.array(dataset_B)
